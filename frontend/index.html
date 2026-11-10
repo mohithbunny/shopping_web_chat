@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Haul — Shop</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<link rel="stylesheet" href="/css/chatbot/chatbot.css">
+<script src="/js/chatbot/chatbot.js" defer></script>
+<body>
+  <header class="topbar" id="site-header"></header>
+  <main class="container">
+    <section class="shop-head">
+      <div>
+        <h1>Everyday things, sent to your door</h1>
+        <p class="muted">Kitchen, home, clothing and more. Add what you need and check out in one step.</p>
+      </div>
+      <form class="search" id="search-form" role="search">
+        <input type="search" id="search-input" placeholder="Search products" aria-label="Search products">
+        <button class="btn" type="submit">Search</button>
+      </form>
+    </section>
+
+    <div class="shop-layout">
+      <aside class="categories" aria-label="Categories">
+        <h3>Categories</h3>
+        <ul id="category-list"></ul>
+      </aside>
+      <section>
+        <div class="toolbar">
+          <span id="result-count" class="muted small"></span>
+          <select id="sort-select" aria-label="Sort products">
+            <option value="newest">Newest</option>
+            <option value="price_asc">Price: low to high</option>
+            <option value="price_desc">Price: high to low</option>
+            <option value="name">Name</option>
+          </select>
+        </div>
+        <div class="grid" id="product-grid"></div>
+      </section>
+    </div>
+  </main>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/shop.js"></script>
+</body>
+</html>

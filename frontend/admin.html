@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Haul — Admin</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="topbar" id="site-header"></header>
+  <div class="admin-layout">
+    <nav class="admin-side" role="tablist" aria-label="Admin sections">
+      <button type="button" role="tab" data-tab="dashboard" aria-selected="true">Dashboard</button>
+      <button type="button" role="tab" data-tab="products" aria-selected="false">Products</button>
+      <button type="button" role="tab" data-tab="orders" aria-selected="false">Orders</button>
+      <button type="button" role="tab" data-tab="customers" aria-selected="false">Customers</button>
+    </nav>
+
+    <main class="admin-main">
+      <!-- Dashboard -->
+      <section id="tab-dashboard" role="tabpanel">
+        <div class="admin-head">
+          <div>
+            <h1 id="week-title">Sales this week</h1>
+            <span class="muted small" id="all-time"></span>
+          </div>
+          <div class="week-nav">
+            <button type="button" id="prev-week" aria-label="Previous week">‹</button>
+            <span id="week-label">…</span>
+            <button type="button" id="next-week" aria-label="Next week">›</button>
+          </div>
+        </div>
+        <div class="alerts" id="alerts"></div>
+        <div class="stats" id="weekly-stats"></div>
+        <div class="charts">
+          <div class="panel"><h2>Revenue and orders by day</h2><div class="chart-box"><canvas id="daily-chart" aria-label="Revenue and orders by day"></canvas></div></div>
+          <div class="panel"><h2>Revenue by category</h2><div class="chart-box"><canvas id="category-chart" aria-label="Revenue by category"></canvas></div></div>
+        </div>
+        <div class="charts">
+          <div class="panel"><h2>Top products by units sold</h2><div class="chart-box"><canvas id="products-chart" aria-label="Top products"></canvas></div></div>
+          <div class="panel"><h2>Orders by status</h2><div class="chart-box"><canvas id="status-chart" aria-label="Orders by status"></canvas></div></div>
+        </div>
+        <div class="panel">
+          <h2>What each customer ordered</h2>
+          <div class="table-wrap" id="weekly-customers"></div>
+        </div>
+      </section>
+
+      <!-- Products -->
+      <section id="tab-products" role="tabpanel" hidden>
+        <div class="admin-head"><h1>Products</h1></div>
+        <div class="product-admin">
+          <form class="panel" id="product-form" novalidate>
+            <h2 id="product-form-title">Add a product</h2>
+            <div class="field"><label for="p-name">Name</label><input id="p-name" required></div>
+            <div class="field"><label for="p-category">Category</label><input id="p-category" list="category-options" required><datalist id="category-options"></datalist></div>
+            <div class="field-row">
+              <div class="field"><label for="p-price">Price</label><input id="p-price" type="number" min="0.01" step="0.01" required></div>
+              <div class="field"><label for="p-stock">Stock</label><input id="p-stock" type="number" min="0" step="1" required></div>
+            </div>
+            <div class="field"><label for="p-image">Image URL <span class="muted">(optional)</span></label><input id="p-image" type="url" placeholder="https://…"></div>
+            <div class="field"><label for="p-desc">Description</label><textarea id="p-desc"></textarea></div>
+            <p class="form-error hidden" id="product-error"></p>
+            <div style="display:flex;gap:.5rem">
+              <button class="btn" type="submit" id="product-submit">Add product</button>
+              <button class="btn secondary hidden" type="button" id="product-cancel">Cancel edit</button>
+            </div>
+          </form>
+          <div class="panel table-wrap" id="product-table"></div>
+        </div>
+      </section>
+
+      <!-- Orders -->
+      <section id="tab-orders" role="tabpanel" hidden>
+        <div class="admin-head"><h1>Orders</h1></div>
+        <form class="filters" id="order-filters">
+          <div><label for="f-status">Status</label>
+            <select id="f-status"><option value="">Any status</option><option>placed</option><option>processing</option><option>shipped</option><option>delivered</option><option>cancelled</option></select></div>
+          <div><label for="f-customer">Customer</label><select id="f-customer"><option value="">All customers</option></select></div>
+          <div><label for="f-from">From</label><input type="date" id="f-from"></div>
+          <div><label for="f-to">To</label><input type="date" id="f-to"></div>
+          <button class="btn" type="submit">Apply filters</button>
+          <button class="btn secondary" type="reset">Clear</button>
+        </form>
+        <p class="muted small" id="orders-count"></p>
+        <div class="panel table-wrap" id="orders-table"></div>
+      </section>
+
+      <!-- Customers -->
+      <section id="tab-customers" role="tabpanel" hidden>
+        <div class="admin-head">
+          <h1>Customers</h1>
+          <form class="search" id="customer-search" role="search">
+            <input type="search" id="customer-search-input" placeholder="Search by name or email" aria-label="Search customers">
+            <button class="btn" type="submit">Search</button>
+          </form>
+        </div>
+        <div class="panel table-wrap" id="customers-table"></div>
+        <div id="customer-detail" style="margin-top:1rem"></div>
+      </section>
+    </main>
+  </div>
+  <script src="/js/vendor/chart.umd.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>
